@@ -11,7 +11,7 @@ module.exports = {
             }
         } else {
             Memory[EMName] = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall'
+                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall' 
             }).map(s => s.id);
         }
     },
@@ -23,7 +23,7 @@ module.exports = {
         let repairName = roomName + '_needRepair';
         if (Memory[repairName]) {
             let newRepair_tgt = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.75 && structure.structureType != 'constructedWall'
+                filter: structure => structure.hits / structure.hitsMax < 0.75 && structure.structureType != 'constructedWall' && structure.structureType != 'rampart'
             }).map(s => s.id).filter(s => Memory[repairName].indexOf(s) == -1);
             Memory[repairName] = Memory[repairName].filter(s => Game.getObjectById(s) != null && Game.getObjectById(s).hits < Game.getObjectById(s).hitsMax);
             for (let newTgt of newRepair_tgt) {
@@ -31,7 +31,7 @@ module.exports = {
             }
         } else {
             Memory[repairName] = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.75 && structure.structureType != 'constructedWall'
+                filter: structure => structure.hits / structure.hitsMax < 0.75 && structure.structureType != 'constructedWall' && structure.structureType != 'rampart'
             }).map(s => s.id);
 
         }
