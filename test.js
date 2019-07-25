@@ -103,24 +103,25 @@ Memory.roomName_role_grpNum_list = {
     tgt: [
         []
     ],
-    resource: [RESOURCE_ENERGY]
+    resource: [RESOURCE_ENERGY],
+    replenishCondition:'true'
 };
-Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Harvester' + Game.time, {
+Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, CARRY,CARRY,CARRY,CARRY,CARRY,CARRY, MOVE, MOVE, MOVE], 'Harvester' + Game.time, {
     memory: {
         type: 'listToList',
-        room: 'E19N25',
-        grpNum: '3',
+        room: 'E19N24',
+        grpNum: '1',
         role: 'harvester',
         work: true,
         needReplenish: true,
         replenishRoom: 'E19N25'
     }
 })
-Game.spawns['Spawn1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Transmitter' + Game.time, {
+Game.spawns['Spawn_E19N25_1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,  MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Transmitter' + Game.time, {
     memory: {
         type: 'listToList',
-        room: 'E19N25',
-        grpNum: '3',
+        room: 'E19N24',
+        grpNum: '1',
         role: 'transporter',
         work: true,
         needReplenish: true,

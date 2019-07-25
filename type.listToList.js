@@ -45,6 +45,9 @@ function setHarvest(creep) {
     }
     if (!src || !tgt || !resourceType) {
         creep.say('unworkable!');
+        if (Memory[creep.memory.room + '_' + creep.memory.role + '_' + creep.memory.grpNum + '_list'].default) {
+            creep.moveTo(Game.getObjectById(Memory[creep.memory.room + '_' + creep.memory.role + '_' + creep.memory.grpNum + '_list'].default));
+        }
         return -1;
     }
     creep.memory.src = src.id;
@@ -77,6 +80,9 @@ function doHarvest(creep,ifRcs) {
             }
             return;
         }
+        if (0 == setHarvest(creep) && ifRcs == true) {
+            doHarvest(creep,false);
+        }
     } else {
         if (tgt && tgt.storeCapacity && _.sum(tgt.store) < tgt.storeCapacity) {
             if (creep.transfer(tgt, resourceType) == ERR_NOT_IN_RANGE) {
@@ -86,6 +92,7 @@ function doHarvest(creep,ifRcs) {
                     }
                 });
             }
+            creep.harvest(src);
             return;
         } else if (tgt && tgt.energyCapacity && tgt.energy < tgt.energyCapacity) {
             if (creep.transfer(tgt, resourceType) == ERR_NOT_IN_RANGE) {
@@ -95,11 +102,9 @@ function doHarvest(creep,ifRcs) {
                     }
                 });
             }
+            creep.harvest(src);
             return;
         }
-    }
-    if (0 == setHarvest(creep) && ifRcs == true) {
-        doHarvest(creep,false);
     }
 }
 
@@ -177,7 +182,8 @@ function doBuild(creep,ifRcs) {
                 creep.travelTo(src, {
                     visualizePathStyle: {
                         stroke: '#ffff00'
-                    }
+                    },
+                    ignoreRoads:true
                 });
             }
             return;
@@ -186,7 +192,8 @@ function doBuild(creep,ifRcs) {
                 creep.travelTo(src, {
                     visualizePathStyle: {
                         stroke: '#ffffff'
-                    }
+                    },
+                    ignoreRoads:true
                 });
             }
             return;
@@ -197,7 +204,8 @@ function doBuild(creep,ifRcs) {
                 creep.travelTo(tgt, {
                     visualizePathStyle: {
                         stroke: '#ffff00'
-                    }
+                    },
+                    ignoreRoads:true
                 });
             }
             return;
@@ -206,7 +214,8 @@ function doBuild(creep,ifRcs) {
                 creep.travelTo(tgt, {
                     visualizePathStyle: {
                         stroke: '#ffff00'
-                    }
+                    },
+                    ignoreRoads:true
                 });
             }
             return;

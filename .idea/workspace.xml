@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="04d62abd-b57b-43e1-a503-113b368df3fc" name="默认的" comment="" />
+    <list default="true" id="04d62abd-b57b-43e1-a503-113b368df3fc" name="默认的" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/replenish.js" beforeDir="false" afterPath="$PROJECT_DIR$/replenish.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/type.listToList.js" beforeDir="false" afterPath="$PROJECT_DIR$/type.listToList.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -16,8 +23,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
+            <state relative-caret-position="1045">
+              <caret line="55" column="9" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -25,38 +32,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/type.listToList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="105" selection-start-line="1" selection-start-column="105" selection-end-line="1" selection-end-column="105" />
+            <state relative-caret-position="1121">
+              <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="627">
+              <caret line="33" column="126" lean-forward="true" selection-start-line="33" selection-start-column="126" selection-end-line="33" selection-end-column="126" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/util.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="42" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
-              <folding>
-                <element signature="e#1204#2113#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/role.listToList.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6213">
-              <caret line="327" column="5" selection-start-line="297" selection-start-column="4" selection-end-line="327" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/replenish.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
+            <state relative-caret-position="57">
+              <caret line="3" column="310" selection-start-line="3" selection-start-column="310" selection-end-line="3" selection-end-column="310" />
             </state>
           </provider>
         </entry>
@@ -64,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3306">
-              <caret line="174" selection-start-line="174" selection-end-line="180" selection-end-column="1" />
+            <state relative-caret-position="308">
+              <caret line="107" column="2" lean-forward="true" selection-start-line="98" selection-start-column="35" selection-end-line="107" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -138,6 +133,9 @@
       <replace>_.get(Memory.roomInfo,[creep.memory.room,'otherInfo','needRepair'],[])</replace>
     </replaceStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -158,13 +156,13 @@
         <option value="$PROJECT_DIR$/role.listToList.js" />
         <option value="$PROJECT_DIR$/idIndex.js" />
         <option value="$PROJECT_DIR$/role.tower.js" />
-        <option value="$PROJECT_DIR$/replenish.js" />
-        <option value="$PROJECT_DIR$/main.js" />
-        <option value="$PROJECT_DIR$/test.js" />
         <option value="$PROJECT_DIR$/module.replenish.js" />
         <option value="$PROJECT_DIR$/test.listToList.js" />
-        <option value="$PROJECT_DIR$/type.listToList.js" />
+        <option value="$PROJECT_DIR$/test.js" />
+        <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/util.js" />
+        <option value="$PROJECT_DIR$/type.listToList.js" />
+        <option value="$PROJECT_DIR$/replenish.js" />
       </list>
     </option>
   </component>
@@ -180,6 +178,7 @@
     <option name="width" value="1750" />
     <option name="height" value="995" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -204,6 +203,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -281,17 +281,20 @@
       <workItem from="1563629724564" duration="2630000" />
       <workItem from="1563766747969" duration="8987000" />
       <workItem from="1563938427542" duration="332000" />
+      <workItem from="1564017033941" duration="557000" />
+      <workItem from="1564017865860" duration="5263000" />
+      <workItem from="1564044859491" duration="4156000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="449756000" />
+    <option name="totallyTimeSpent" value="459732000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.58019525" visible="true" weight="0.14464994" />
-      <window_info id="Structure" order="1" sideWeight="0.41980475" side_tool="true" visible="true" weight="0.14464994" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.575419" visible="true" weight="0.14464994" />
+      <window_info id="Structure" order="1" sideWeight="0.424581" side_tool="true" visible="true" weight="0.14464994" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -403,38 +406,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/module.replenish.js" />
-    <entry file="file://$PROJECT_DIR$/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="49" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/type.listToList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="105" selection-start-line="1" selection-start-column="105" selection-end-line="1" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/role.listToList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6213">
+        <state relative-caret-position="1198">
           <caret line="327" column="5" selection-start-line="297" selection-start-column="4" selection-end-line="327" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/replenish.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3306">
-          <caret line="174" selection-start-line="174" selection-end-line="180" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -452,13 +427,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="55" column="9" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="107" column="2" lean-forward="true" selection-start-line="98" selection-start-column="35" selection-end-line="107" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="42" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
-          <folding>
-            <element signature="e#1204#2113#0" />
-          </folding>
+        <state relative-caret-position="627">
+          <caret line="33" column="126" lean-forward="true" selection-start-line="33" selection-start-column="126" selection-end-line="33" selection-end-column="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/type.listToList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1121">
+          <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/replenish.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="310" selection-start-line="3" selection-start-column="310" selection-end-line="3" selection-end-column="310" />
         </state>
       </provider>
     </entry>
