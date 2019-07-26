@@ -104,9 +104,9 @@ Memory.roomName_role_grpNum_list = {
         []
     ],
     resource: [RESOURCE_ENERGY],
-    replenishCondition:'true'
+    replenishCondition: 'true'
 };
-Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, CARRY,CARRY,CARRY,CARRY,CARRY,CARRY, MOVE, MOVE, MOVE], 'Harvester' + Game.time, {
+Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], 'Harvester' + Game.time, {
     memory: {
         type: 'listToList',
         room: 'E19N24',
@@ -117,7 +117,7 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, CA
         replenishRoom: 'E19N25'
     }
 })
-Game.spawns['Spawn_E19N25_1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY,  MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Transmitter' + Game.time, {
+Game.spawns['Spawn_E19N25_1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Transmitter' + Game.time, {
     memory: {
         type: 'listToList',
         room: 'E19N24',
@@ -172,14 +172,87 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WO
         replenishRoom: 'E19N25'
     }
 })
-
-for (let m in Memory) {
-    if (m.indexOf('_list') == -1 && m.indexOf('E') != -1 ) {
-        let arr = m.split('_');
-        let base = Memory.roomInfo;
-        base[arr[0]]['otherInfo'][arr[1]] = Memory[m];
+//新的模式
+Memory.taskList['E19N25']['linkAndUpgradeTransporter'] = [
+    {
+        src: [],
+        srcJudge: '',
+        doSrc: '',
+        tgt: [],
+        tgtJudge: '',
+        doTgt: '',
+        resourceType: RESOURCE_ENERGY
     }
-}
-
+];
+memory = {
+    type: 'conventional',
+    typeInfo: {
+        taskRoom: 'E19N25',
+        taskName: 'keyTransporter'
+    },
+    work: true,
+    needReplenish: true,
+    replenishRoom: 'E19N25'
+};
+Game.spawns['Spawn_E19N25_1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Transmitter' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E19N25',
+            taskName: 'keyTransporter'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E19N25'
+    }
+});
+Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE], 'Harvester' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E19N25',
+            taskName: 'sourceI'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E19N25'
+    }
+});
+Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY,CARRY, CARRY,CARRY, CARRY,CARRY, CARRY,CARRY, CARRY,CARRY, CARRY,CARRY, CARRY,CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Builder' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E19N25',
+            taskName: 'maintain'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E19N25'
+    }
+});
+Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK,WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK,WORK, WORK, WORK, WORK, WORK,CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Upgrader' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E19N25',
+            taskName: 'upgrade'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E19N25'
+    }
+});
+Game.spawns['Spawn_E19N25_1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Transmitter' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E19N25',
+            taskName: 'linkAndUpgradeTransporter'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E19N25'
+    }
+});
 
 

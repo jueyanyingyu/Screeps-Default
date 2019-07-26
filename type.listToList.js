@@ -80,7 +80,7 @@ function doHarvest(creep,ifRcs) {
             }
             return;
         }
-        if (0 == setHarvest(creep) && ifRcs == true) {
+        if (ifRcs == true && 0 == setHarvest(creep) ) {
             doHarvest(creep,false);
         }
     } else {
@@ -221,7 +221,7 @@ function doBuild(creep,ifRcs) {
             return;
         }
     }
-    if (0 == setBuild(creep) && ifRcs == true) {
+    if (ifRcs == true && 0 == setBuild(creep)) {
         doBuild(creep,false);
     }
 }
@@ -299,7 +299,7 @@ function doUpgrade(creep,ifRcs) {
             return;
         }
     }
-    if (0 == setUpgrade(creep) && ifRcs == true) {
+    if (ifRcs == true && 0 == setUpgrade(creep)) {
         doUpgrade(creep,false);
     }
 }
@@ -410,7 +410,7 @@ function doTransport(creep,ifRcs) {
             return;
         }
     }
-    if (0 == setTransport(creep) && ifRcs == true) {
+    if (ifRcs == true && 0 == setTransport(creep)) {
         doTransport(creep,false);
     }
 }

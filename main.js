@@ -5,6 +5,7 @@ let roleTower = require('role.tower');
 let roleToSpot = require('role.toSpot');
 let roleListToList = require('role.listToList');
 let roleLink = require('role.link');
+const conventional = require('type.conventional');
 //let roleDemolisher = require('role.demolisher');
 //let roleClaimer = require('role.claimer');
 profiler.enable();
@@ -54,7 +55,7 @@ module.exports.loop = function () {
                 }
             }
         }
-        if (Game.time % 20 == 0) {
+        if (Game.time % 2 == 0) {
             if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] == 0) {
                 Game.getObjectById('5d1386bb1bd51d1fd82e33f3').send(RESOURCE_ENERGY, 200000, 'E19N25');
             }
@@ -64,6 +65,12 @@ module.exports.loop = function () {
                     tool.updateEM(roomName);
                     tool.updateBuild(roomName);
                     tool.updateRepair(roomName);
+                    try {
+                        tool.updateEMList(roomName);
+                        tool.updateBuildList(roomName);
+                        tool.updateRepairList(roomName);
+                    } catch (e) {
+                    }
                 }
             }
 
@@ -73,6 +80,12 @@ module.exports.loop = function () {
                     delete Memory.creeps[name];
                 }
             }
+        }
+
+        let conventionalCreeps = _.filter(Game.creeps, (creep) => creep.memory.type == 'conventional');
+        for (let name in conventionalCreeps) {
+            let creep = conventionalCreeps[name];
+            conventional.run(creep);
         }
 
         let listCreeps = _.filter(Game.creeps, (creep) => creep.memory.type == 'listToList');
