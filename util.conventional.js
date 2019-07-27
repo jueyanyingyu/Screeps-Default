@@ -23,6 +23,10 @@ module.exports = {
         let tgt = Game.getObjectById(id);
         return (tgt.storeCapacity && tgt.store[resourceType] >= 50000)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy >= 50000);
     },
+    containerJudgeV:function (id ,resourceType) {
+        let tgt = Game.getObjectById(id);
+        return (tgt.storeCapacity && tgt.store[resourceType] < 150000)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy < 150000);
+    },
     repairJudge:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
         return tgt.hits < tgt.hitsMax;

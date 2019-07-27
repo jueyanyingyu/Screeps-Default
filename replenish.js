@@ -10,6 +10,9 @@ let replenish = {
                 if (Memory[creep.memory.room + '_' + creep.memory.role + '_' + creep.memory.grpNum + '_list']) {
                     let condition = Memory[creep.memory.room + '_' + creep.memory.role + '_' + creep.memory.grpNum + '_list'].replenishCondition;
                     newCreepInf.condition = condition;
+                } else if (Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName].replenishCondition) {
+                    let condition = Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName].replenishCondition
+                    newCreepInf.condition = condition;
                 } else {
                     newCreepInf.condition = 'true';
                 }

@@ -182,6 +182,7 @@ Memory.taskList['E19N25']['linkAndUpgradeTransporter'] = [
         tgtJudge: '',
         doTgt: '',
         resourceType: RESOURCE_ENERGY
+        //replenishCondition:''
     }
 ];
 memory = {
@@ -254,5 +255,16 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CAR
         replenishRoom: 'E19N25'
     }
 });
-
+Memory.taskList['E19N25']['mineralTransport'] = [
+    {
+        src: ['5d2d39f42f9d025df7cf1a89'],
+        srcJudge: 'containerJudgeI',
+        doSrc: 'withdraw',
+        tgt: ['5d1bc1dab5c99a37435cd260'],
+        tgtJudge: 'containerJudgeII',
+        doTgt: 'transfer',
+        resourceType: RESOURCE_ZYNTHIUM,
+        replenishCondition: 'Game.getObjectById(\'5bbcb37f40062e4259e94456\').mineralAmount > 0'
+    }
+];
 

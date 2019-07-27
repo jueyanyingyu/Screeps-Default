@@ -55,9 +55,12 @@ module.exports.loop = function () {
                 }
             }
         }
-        if (Game.time % 2 == 0) {
-            if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] == 0) {
-                Game.getObjectById('5d1386bb1bd51d1fd82e33f3').send(RESOURCE_ENERGY, 200000, 'E19N25');
+        if (Game.time % 20 == 0) {
+            if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] > 0) {
+                let order =Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ZYNTHIUM}).sort((a,b)=>b.price-Game.market.calcTransactionCost(100, 'E19N25', b.roomName)*0.00015-a.price+Game.market.calcTransactionCost(100, 'E19N25', a.roomName)*0.00015)[0];
+                Game.market.deal(order.id,1000,'E19N25');
+                let price = order.price - Game.market.calcTransactionCost(100, 'E19N25', order.roomName)*0.00015;
+                console.log("deal with " + order.roomName + ' at the price of ' + price);
             }
             //builder维护
             for (let roomName in Game.rooms) {

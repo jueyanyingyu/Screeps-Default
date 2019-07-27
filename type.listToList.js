@@ -420,27 +420,49 @@ module.exports = {
         let replenish = require('replenish');
         replenish.run(creep);
         if (_.sum(creep.carry) == creep.carryCapacity) {
-            creep.memory.work = false;
-        } else if ((creep.memory.resourceType && !creep.carry[creep.memory.resourceType]) || creep.carry[RESOURCE_ENERGY] == 0) {
-            creep.memory.work = true;
-            switch (creep.memory.role) {
-                case "harvester": {
-                    setHarvest(creep);
-                    break;
-                }
-                case "builder": {
-                    setBuild(creep);
-                    break;
-                }
-                case "upgrader": {
-                    setUpgrade(creep);
-                    break;
-                }
-                case "transporter": {
-                    setTransport(creep);
-                    break;
+            if (creep.memory.work == true) {
+                switch (creep.memory.role) {
+                    case "harvester": {
+                        setHarvest(creep);
+                        break;
+                    }
+                    case "builder": {
+                        setBuild(creep);
+                        break;
+                    }
+                    case "upgrader": {
+                        setUpgrade(creep);
+                        break;
+                    }
+                    case "transporter": {
+                        setTransport(creep);
+                        break;
+                    }
                 }
             }
+            creep.memory.work = false;
+        } else if ((creep.memory.resourceType && !creep.carry[creep.memory.resourceType]) || creep.carry[RESOURCE_ENERGY] == 0) {
+            if (creep.memory.work == false) {
+                switch (creep.memory.role) {
+                    case "harvester": {
+                        setHarvest(creep);
+                        break;
+                    }
+                    case "builder": {
+                        setBuild(creep);
+                        break;
+                    }
+                    case "upgrader": {
+                        setUpgrade(creep);
+                        break;
+                    }
+                    case "transporter": {
+                        setTransport(creep);
+                        break;
+                    }
+                }
+            }
+            creep.memory.work = true;
         }
         switch (creep.memory.role) {
             case "harvester": {
