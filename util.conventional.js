@@ -9,35 +9,35 @@ module.exports = {
     },
     containerJudgeI:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
-        return (tgt.storeCapacity && tgt.store[resourceType] > 0 )|| (resourceType == RESOURCE_ENERGY && tgt.energyCapacity && tgt.energy > 0);
+        return tgt && (tgt.storeCapacity && tgt.store[resourceType] > 0 )|| (resourceType == RESOURCE_ENERGY && tgt.energyCapacity && tgt.energy > 0);
     },
     containerJudgeII:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
-        return (tgt.storeCapacity && _.sum(tgt.store) < tgt.storeCapacity) || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy < tgt.energyCapacity);
+        return tgt && (tgt.storeCapacity && _.sum(tgt.store) < tgt.storeCapacity) || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy < tgt.energyCapacity);
     },
     containerJudgeIII:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
-        return (tgt.storeCapacity && tgt.storeCapacity - tgt.store[RESOURCE_ENERGY] >= 1200)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energyCapacity - tgt.energy >= 1200);
+        return tgt && (tgt.storeCapacity && tgt.storeCapacity - tgt.store[RESOURCE_ENERGY] >= 1200)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energyCapacity - tgt.energy >= 1200);
     },
     containerJudgeIV:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
-        return (tgt.storeCapacity && tgt.store[resourceType] >= 50000)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy >= 50000);
+        return tgt && (tgt.storeCapacity && tgt.store[resourceType] >= 50000)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy >= 50000);
     },
     containerJudgeV:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
-        return (tgt.storeCapacity && tgt.store[resourceType] < 150000)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy < 150000);
+        return tgt && (tgt.storeCapacity && tgt.store[resourceType] < 150000)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy < 150000);
     },
     repairJudge:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
-        return tgt.hits < tgt.hitsMax;
+        return tgt && tgt.hits < tgt.hitsMax;
     },
     buildJudge:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
-        return tgt.progress < tgt.progressTotal;
+        return tgt && tgt.progress < tgt.progressTotal;
     },
     controllerJudge:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
-        return tgt.progress < tgt.progressTotal;
+        return tgt && tgt.progress ;
     },
 
     harvestSourceOrMineral:function (creep ,srcId, tgtId ,resourceType) {

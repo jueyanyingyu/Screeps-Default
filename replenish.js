@@ -7,6 +7,8 @@ let replenish = {
                     name: creep.memory.type + '_',
                     memory: JSON.stringify(creep.memory)
                 };
+                newCreepInf.condition = 'true';
+                /*
                 if (Memory[creep.memory.room + '_' + creep.memory.role + '_' + creep.memory.grpNum + '_list']) {
                     let condition = Memory[creep.memory.room + '_' + creep.memory.role + '_' + creep.memory.grpNum + '_list'].replenishCondition;
                     newCreepInf.condition = condition;
@@ -16,6 +18,7 @@ let replenish = {
                 } else {
                     newCreepInf.condition = 'true';
                 }
+                 */
                 Memory[creep.memory.replenishRoom + '_spawnList'].push(newCreepInf);
                 creep.memory.needReplenish = false;
             }

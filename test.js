@@ -255,16 +255,30 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CAR
         replenishRoom: 'E19N25'
     }
 });
-Memory.taskList['E19N25']['mineralTransport'] = [
+Memory.taskList['E18N24']['maintain'] = [
     {
-        src: ['5d2d39f42f9d025df7cf1a89'],
-        srcJudge: 'containerJudgeI',
-        doSrc: 'withdraw',
-        tgt: ['5d1bc1dab5c99a37435cd260'],
-        tgtJudge: 'containerJudgeII',
-        doTgt: 'transfer',
-        resourceType: RESOURCE_ZYNTHIUM,
-        replenishCondition: 'Game.getObjectById(\'5bbcb37f40062e4259e94456\').mineralAmount > 0'
+        src: ['5bbcadfa9099fc012e6383c3','5bbcadfa9099fc012e6383c4'],
+        srcJudge: 'sourceJudge',
+        doSrc: 'harvestSourceOrMineral',
+        tgt: [],
+        tgtJudge: 'repairJudge',
+        doTgt: 'repair',
+        resourceType: RESOURCE_ENERGY
+    },{
+        src: ['5bbcadfa9099fc012e6383c3','5bbcadfa9099fc012e6383c4'],
+        srcJudge: 'sourceJudge',
+        doSrc: 'harvestSourceOrMineral',
+        tgt: [],
+        tgtJudge: 'buildJudge',
+        doTgt: 'build',
+        resourceType: RESOURCE_ENERGY
+    },{
+        src: ['5bbcadfa9099fc012e6383c3','5bbcadfa9099fc012e6383c4'],
+        srcJudge: 'sourceJudge',
+        doSrc: 'harvestSourceOrMineral',
+        tgt: [],
+        tgtJudge: 'repairJudge',
+        doTgt: 'repair',
+        resourceType: RESOURCE_ENERGY
     }
 ];
-

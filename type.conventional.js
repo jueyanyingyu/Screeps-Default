@@ -1,5 +1,6 @@
 const UC = require('util.conventional');
 const replenish = require('replenish');
+const renew = require('renew');
 function setCreep(creep) {
     const UC = require('util.conventional');
     try {
@@ -18,6 +19,8 @@ function setCreep(creep) {
             return true;
         }
     } catch (e) {
+        console.log(creep);
+        console.log(e);
         creep.say('cannot set');
     }
 }
@@ -45,6 +48,7 @@ function doCreep(creep, ifRcs) {
     } catch (e) {
         creep.say('cannot work');
     }
+    creep.say('setting');
     if (ifRcs == true && setCreep(creep) == true) {
         doCreep(creep, false);
     }
@@ -52,7 +56,13 @@ function doCreep(creep, ifRcs) {
 
 module.exports = {
     run: function (creep) {
-        replenish.run(creep);
+        if (creep.memory.needRenew == true) {
+            if (renew.run(creep) == true ) {
+                return;
+            }
+        } else {
+            replenish.run(creep);
+        }
         if (_.sum(creep.carry) == creep.carryCapacity) {
             if (creep.memory.work == true) {
                 setCreep(creep);

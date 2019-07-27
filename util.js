@@ -47,7 +47,7 @@ module.exports = {
             }
         } else {
             Memory['taskList'][roomName]['maintain'][0].tgt = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall'
+                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall' && structure.structureType != STRUCTURE_RAMPART
             }).map(s => s.id);
         }
     },

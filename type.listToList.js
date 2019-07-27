@@ -182,8 +182,7 @@ function doBuild(creep,ifRcs) {
                 creep.travelTo(src, {
                     visualizePathStyle: {
                         stroke: '#ffff00'
-                    },
-                    ignoreRoads:true
+                    }
                 });
             }
             return;
@@ -192,8 +191,7 @@ function doBuild(creep,ifRcs) {
                 creep.travelTo(src, {
                     visualizePathStyle: {
                         stroke: '#ffffff'
-                    },
-                    ignoreRoads:true
+                    }
                 });
             }
             return;
@@ -204,8 +202,7 @@ function doBuild(creep,ifRcs) {
                 creep.travelTo(tgt, {
                     visualizePathStyle: {
                         stroke: '#ffff00'
-                    },
-                    ignoreRoads:true
+                    }
                 });
             }
             return;
@@ -214,8 +211,7 @@ function doBuild(creep,ifRcs) {
                 creep.travelTo(tgt, {
                     visualizePathStyle: {
                         stroke: '#ffff00'
-                    },
-                    ignoreRoads:true
+                    }
                 });
             }
             return;

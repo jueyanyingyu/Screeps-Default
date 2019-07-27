@@ -1,25 +1,25 @@
 let renew = {
     run: function (creep) {
-        if (creep.memory.renew == true && Memory['canRenew_'+creep.memory.room] == true) {
-            creep.say('renew');
-            let spawn = Game.getObjectById(creep.memory.renewSpawn);
-            if (spawn) {
-                let result = spawn.renewCreep(creep);
-                if (result == -6) {
-                    Memory['canRenew_'+creep.memory.room] = false;
-                } else if (result == -8) {
-                    creep.memory.renew = false;
-                } else {
-                    creep.moveTo(spawn);
-                }
-                return 0;
-            } else {
-                creep.say('no spawn');
-            }
-
-        } else {
-            return -1;
+        if (Game.rooms[creep.memory.renewRoom].energyAvailable >= 300) {
+            Memory['roomInfo'][creep.memory.renewRoom]['canRenew'] = true;
         }
+        if (Game.rooms[creep.memory.renewRoom].energyAvailable <= 30) {
+            Memory['roomInfo'][creep.memory.renewRoom]['canRenew'] = false;
+        }
+        if (creep.ticksToLive / 1500 < 0.1) {
+            creep.memory.goRenew = true;
+        }
+        if (creep.ticksToLive / 1500 > 0.90) {
+            creep.memory.goRenew = false;
+        }
+        if (Memory['roomInfo'][creep.memory.renewRoom]['canRenew'] == true && creep.memory.goRenew == true) {
+            let spawn = _.filter(Game.spawns, s => s.room.name == creep.memory.renewRoom && !s.spawning)[0];
+            if (spawn.renewCreep(creep) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(spawn);
+            }
+            return true;
+        }
+        return false;
     }
 }
 
