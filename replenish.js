@@ -1,7 +1,7 @@
 let replenish = {
     run: function (creep) {
         if (creep.memory.needReplenish && creep.memory.replenishRoom && Memory[creep.memory.replenishRoom + '_spawnList']) {
-            if (creep.memory.needReplenish == true && creep.ticksToLive < (_.sum(Memory[creep.memory.replenishRoom + '_spawnList'].filter(c => eval(c.condition) == true), c => JSON.parse(c.body).length) + creep.body.length + 5) / Object.keys(_.filter(Game.spawns, s => s.room.name == creep.memory.replenishRoom)).length * 3) {
+            if (creep.memory.needReplenish == true && creep.ticksToLive < (_.sum(Memory[creep.memory.replenishRoom + '_spawnList'].filter(c => eval(c.condition) == true), c => JSON.parse(c.body).length) + creep.body.length + 8) / Object.keys(_.filter(Game.spawns, s => s.room.name == creep.memory.replenishRoom)).length * 3) {
                 let newCreepInf = {
                     body: JSON.stringify(creep.body.map(s => s.type)),
                     name: creep.memory.type + '_',

@@ -11,7 +11,7 @@ module.exports = {
             }
         } else {
             Memory[EMName] = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall' 
+                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall'
             }).map(s => s.id);
         }
     },
@@ -39,7 +39,7 @@ module.exports = {
     updateEMList:function (roomName) {
         if (Memory['taskList'][roomName]['maintain'][0].tgt.length) {
             let newEM_tgt = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall' && structure.structureType != STRUCTURE_RAMPART
+                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall' && structure.structureType != STRUCTURE_RAMPART && structure.id != '5d3c3eee9281654675c67a48'
             }).map(s => s.id).filter(s => Memory['taskList'][roomName]['maintain'][0].tgt.indexOf(s) == -1);
             Memory['taskList'][roomName]['maintain'][0].tgt = Memory['taskList'][roomName]['maintain'][0].tgt.filter(s => Game.getObjectById(s) != null && Game.getObjectById(s).hits / Game.getObjectById(s).hitsMax < 0.3);
             for (let newTgt of newEM_tgt) {
@@ -47,7 +47,7 @@ module.exports = {
             }
         } else {
             Memory['taskList'][roomName]['maintain'][0].tgt = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall' && structure.structureType != STRUCTURE_RAMPART
+                filter: structure => structure.hits / structure.hitsMax < 0.1 && structure.structureType != 'constructedWall' && structure.structureType != STRUCTURE_RAMPART && structure.id != '5d3c3eee9281654675c67a48'
             }).map(s => s.id);
         }
     },
@@ -57,7 +57,7 @@ module.exports = {
     updateRepairList:function (roomName) {
         if (Memory['taskList'][roomName]['maintain'][2].tgt.length) {
             let newRepair_tgt = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.75 && structure.structureType != 'constructedWall' && structure.structureType != 'rampart'
+                filter: structure => structure.hits / structure.hitsMax < 0.75 && structure.structureType != 'constructedWall' && structure.structureType != 'rampart' && structure.id != '5d3c3eee9281654675c67a48'
             }).map(s => s.id).filter(s => Memory['taskList'][roomName]['maintain'][2].tgt.indexOf(s) == -1);
             Memory['taskList'][roomName]['maintain'][2].tgt = Memory['taskList'][roomName]['maintain'][2].tgt.filter(s => Game.getObjectById(s) != null && Game.getObjectById(s).hits < Game.getObjectById(s).hitsMax);
             for (let newTgt of newRepair_tgt) {
@@ -65,7 +65,7 @@ module.exports = {
             }
         } else {
             Memory['taskList'][roomName]['maintain'][2].tgt = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.75 && structure.structureType != 'constructedWall'  && structure.structureType != 'rampart'
+                filter: structure => structure.hits / structure.hitsMax < 0.75 && structure.structureType != 'constructedWall'  && structure.structureType != 'rampart' && structure.id != '5d3c3eee9281654675c67a48'
             }).map(s => s.id);
         }
     },

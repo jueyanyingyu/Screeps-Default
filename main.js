@@ -64,6 +64,16 @@ module.exports.loop = function () {
                 console.log("deal with " + order.roomName + ' at the price of ' + price);
             }
             */
+            /*
+            if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] < 100000) {
+                let order =Game.market.getAllOrders({type: ORDER_SELL, resourceType: RESOURCE_ENERGY}).sort((b,a)=>b.price-Game.market.calcTransactionCost(100, 'E19N25', b.roomName)*0.00015-a.price+Game.market.calcTransactionCost(100, 'E19N25', a.roomName)*0.00015)[0];
+                if (order.price  < 0.03) {
+                    Game.market.deal(order.id,1000,'E19N25');
+                }
+                let price = order.price + Game.market.calcTransactionCost(100, 'E19N25', order.roomName)*0.00015;
+                console.log("deal with " + order.roomName + ' at the price of ' + price);
+            }
+             */
             //builder维护
             for (let roomName in Game.rooms) {
                 if (Memory.roomList.indexOf(roomName) != -1) {

@@ -322,7 +322,7 @@ function doDefend(creep) {
             } else {
                 let creepList = creep.room.find(FIND_MY_CREEPS);
                 let length =creepList.length;
-                creep.moveTo(creepList[Math.floor(Math.random() * (length - 0) )],{reusePath:20});
+                creep.moveTo(new RoomPosition(25,25,creep.memory.room));
             }
         }
     }

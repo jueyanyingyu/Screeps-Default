@@ -242,6 +242,17 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WO
         needReplenish: true,
         replenishRoom: 'E19N25'
     }
+});Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK,WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK,WORK, WORK, WORK, WORK, WORK,CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Upgrader' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E19N25',
+            taskName: 'upgrade'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E19N25'
+    }
 });
 Game.spawns['Spawn_E19N25_1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Transmitter' + Game.time, {
     memory: {
@@ -282,3 +293,26 @@ Memory.taskList['E18N24']['maintain'] = [
         resourceType: RESOURCE_ENERGY
     }
 ];
+Memory.taskList['E19N25']['energyTransporter'] = [
+    {
+        src: ['5d3c5a21b82e1179ccb7f2c6'],
+        srcJudge: 'containerJudgeI',
+        doSrc: 'withdraw',
+        tgt: ['5d1bc1dab5c99a37435cd260'],
+        tgtJudge: 'containerJudgeII',
+        doTgt: 'transfer',
+        resourceType: RESOURCE_ENERGY
+    }
+];
+Game.spawns['Spawn_E19N25_2'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Transmitter' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E19N25',
+            taskName: 'energyTransporter'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E19N25'
+    }
+});
