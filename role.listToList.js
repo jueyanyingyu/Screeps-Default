@@ -12,13 +12,14 @@ function doDefend(creep) {
             hostile = noHealHostile;
         }
         if (hostile) {
-            creep.heal(creep);
             if (creep.attack(hostile) == ERR_NOT_IN_RANGE) {
+                creep.heal(creep);
                 creep.travelTo(hostile,{
                     maxRooms:1
                 });
             }
             if (creep.rangedAttack(hostile) == ERR_NOT_IN_RANGE) {
+                creep.heal(creep);
                 creep.travelTo(hostile,{
                     maxRooms:1
                 });
@@ -27,6 +28,7 @@ function doDefend(creep) {
             let closestInjuredCreep = creep.room.find(FIND_MY_CREEPS,{filter:c=>c.hits<c.hitsMax})[0];
             if (closestInjuredCreep) {
                 if (creep.heal(closestInjuredCreep) == ERR_NOT_IN_RANGE) {
+                    creep.rangedHeal(closestInjuredCreep);
                     creep.travelTo(closestInjuredCreep,{
                         maxRooms:1
                     });

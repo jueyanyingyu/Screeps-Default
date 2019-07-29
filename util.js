@@ -72,15 +72,15 @@ module.exports = {
     updateFortList:function (roomName) {
         if (Memory['taskList'][roomName]['maintain'][3].tgt.length) {
             let newRepair_tgt = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.01 && (structure.structureType == 'rampart'|| structure.structureType == 'constructedWall'  )
+                filter: structure => structure.hits / structure.hitsMax < 0.005 && (structure.structureType == 'rampart'|| structure.structureType == 'constructedWall'  )
             }).map(s => s.id).filter(s => Memory['taskList'][roomName]['maintain'][3].tgt.indexOf(s) == -1);
-            Memory['taskList'][roomName]['maintain'][3].tgt = Memory['taskList'][roomName]['maintain'][3].tgt.filter(s => Game.getObjectById(s) != null && Game.getObjectById(s).hits / Game.getObjectById(s).hitsMax < 0.01);
+            Memory['taskList'][roomName]['maintain'][3].tgt = Memory['taskList'][roomName]['maintain'][3].tgt.filter(s => Game.getObjectById(s) != null && Game.getObjectById(s).hits / Game.getObjectById(s).hitsMax < 0.005);
             for (let newTgt of newRepair_tgt) {
                 Memory['taskList'][roomName]['maintain'][3].tgt.push(newTgt);
             }
         } else {
             Memory['taskList'][roomName]['maintain'][3].tgt = Game.rooms[roomName].find(FIND_STRUCTURES, {
-                filter: structure => structure.hits / structure.hitsMax < 0.01 && (structure.structureType == 'rampart'|| structure.structureType == 'constructedWall'  )
+                filter: structure => structure.hits / structure.hitsMax < 0.005 && (structure.structureType == 'rampart'|| structure.structureType == 'constructedWall'  )
             }).sort((a,b)=>a.hits/a.hitsMax - b.hits/b.hitsMax).map(s => s.id);
         }
     },
