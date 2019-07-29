@@ -27,6 +27,10 @@ module.exports = {
         let tgt = Game.getObjectById(id);
         return tgt && (tgt.storeCapacity && tgt.store[resourceType] < 150000)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy < 150000);
     },
+    containerJudgeVI:function (id ,resourceType) {
+        let tgt = Game.getObjectById(id);
+        return tgt && (tgt.storeCapacity && tgt.store[resourceType] >= 1200)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy >= 1200);
+    },
     repairJudge:function (id ,resourceType) {
         let tgt = Game.getObjectById(id);
         return tgt && tgt.hits < tgt.hitsMax;
@@ -53,6 +57,13 @@ module.exports = {
         }
         creep.memory.work = false;
     },
+    withdrawNear:function (creep ,srcId, tgtId ,resourceType) {
+        let src = Game.getObjectById(srcId);
+        if (creep.withdraw(src,resourceType) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(src);
+        }
+        creep.memory.work = false;
+    },
     withdrawWithUpgrade:function (creep ,srcId, tgtId ,resourceType) {
         let src = Game.getObjectById(srcId);
         let tgt = Game.getObjectById(tgtId);
@@ -66,6 +77,20 @@ module.exports = {
         if (creep.transfer(tgt, resourceType) == ERR_NOT_IN_RANGE) {
             creep.travelTo(tgt);
         }
+    },
+    transferNear:function (creep ,srcId, tgtId ,resourceType) {
+        let tgt = Game.getObjectById(tgtId);
+        if (creep.transfer(tgt, resourceType) == ERR_NOT_IN_RANGE) {
+            creep.moveTo(tgt);
+        }
+    },
+    transferWithWithdraw:function (creep ,srcId, tgtId ,resourceType) {
+        let src = Game.getObjectById(srcId);
+        let tgt = Game.getObjectById(tgtId);
+        if (creep.transfer(tgt, resourceType) == ERR_NOT_IN_RANGE) {
+            creep.travelTo(tgt);
+        }
+        creep.withdraw(src,resourceType);
     },
     transferWithHarvest:function (creep ,srcId, tgtId ,resourceType) {
         let src = Game.getObjectById(srcId);

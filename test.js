@@ -83,7 +83,7 @@ Game.spawns['Spawn1'].spawnCreep([RANGED_ATTACK, MOVE, MOVE], 'Tester' + Game.ti
         groupNum: '1'
     }
 });
-Game.spawns['Spawn_E19N25_1'].spawnCreep([MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, HEAL], 'Defender' + Game.time, {
+Game.spawns['Spawn_E19N25_2'].spawnCreep([MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, HEAL], 'Defender' + Game.time, {
     memory: {
         typeRole: 'listToList',
         role: 'defender',
@@ -139,15 +139,15 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, CA
         replenishRoom: 'E19N25'
     }
 })
-Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Builder' + Game.time, {
+Game.spawns['Spawn_E18N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Builder' + Game.time, {
     memory: {
         type: 'listToList',
-        room: 'E19N24',
+        room: 'E18N25',
         grpNum: '1',
         role: 'builder',
         work: true,
         needReplenish: true,
-        replenishRoom: 'E19N25'
+        replenishRoom: 'E18N25'
     }
 })
 Memory.E19N25_transporter_1_list = {
@@ -211,7 +211,7 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WO
     memory: {
         type: 'conventional',
         typeInfo: {
-            taskRoom: 'E19N25',
+            taskRoom: 'E18N25',
             taskName: 'sourceI'
         },
         work: true,
@@ -316,3 +316,17 @@ Game.spawns['Spawn_E19N25_2'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CAR
         replenishRoom: 'E19N25'
     }
 });
+Game.spawns['Spawn1'].spawnCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Transmitter' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E18N25',
+            taskName: 'sourceTransporterI'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E19N25'
+    }
+});
+
+

@@ -11,46 +11,14 @@ const conventional = require('type.conventional');
 profiler.enable();
 module.exports.loop = function () {
     profiler.wrap(function () {
-        if (Game.time % 2 == 0) {
+        if (Game.time % 1 == 0) {
             for (let roomName in Game.rooms) {
-                if (Memory[roomName + '_spawnList']) {
-                    let toSpawn = Memory[roomName + '_spawnList'].filter(c => eval(c.condition) == true)[0];
-                    if (toSpawn) {
-                        let spawns = _.filter(Game.spawns, s => s.room.name == roomName && !s.spawning);
-                        for (let spawn of spawns) {
-                            if (spawn) {
-                                let r;
-                                if (Memory[roomName + '_extension_list']) {
-                                    let exList = Memory[roomName + '_extension_list'].map(e => Game.getObjectById(e));
-                                    r = spawn.spawnCreep(JSON.parse(toSpawn.body), toSpawn.name + spawn.name + '_' + Game.time, {
-                                        memory: JSON.parse(toSpawn.memory),
-                                        energyStructures: exList
-                                    });
-                                    console.log(spawn + ':' + r);
-                                } else {
-                                    r = spawn.spawnCreep(JSON.parse(toSpawn.body), toSpawn.name + spawn.name + '_' + Game.time, {memory: JSON.parse(toSpawn.memory)});
-                                    console.log(spawn + ':' + r);
-                                }
-                                if (r == OK) {
-                                    Memory[roomName + '_spawnList'] = Memory[roomName + '_spawnList'].filter(c => c != toSpawn)
-                                    break;
-                                } else if (r == -6 && !_.filter(Game.creeps, c => c.memory.room == roomName && c.memory.role == 'transporter' && c.memory.grpNum == '1')[0]) {
-                                    spawn.spawnCreep([CARRY, CARRY, CARRY, CARRY, MOVE, MOVE], 'transmitter' + Game.time, {
-                                        memory: {
-                                            type: 'listToList',
-                                            room: roomName,
-                                            grpNum: '1',
-                                            role: 'transporter',
-                                            work: true,
-                                            needReplenish: false,
-                                            replenishRoom: roomName
-                                        }
-                                    });
-                                    //console.log(roomName + ':' + r);
-                                }
-                            }
-                        }
-
+                if (Game.rooms[roomName].find(FIND_MY_SPAWNS).filter(s => s.isActive() == true).length > 0) {
+                    try {
+                        tool.spawn(roomName);
+                    } catch (e) {
+                        console.log(roomName);
+                        console.log(e);
                     }
                 }
             }
@@ -77,13 +45,11 @@ module.exports.loop = function () {
             //builder维护
             for (let roomName in Game.rooms) {
                 if (Memory.roomList.indexOf(roomName) != -1) {
-                    tool.updateEM(roomName);
-                    tool.updateBuild(roomName);
-                    tool.updateRepair(roomName);
                     try {
                         tool.updateEMList(roomName);
                         tool.updateBuildList(roomName);
                         tool.updateRepairList(roomName);
+                        tool.updateFortList(roomName);
                     } catch (e) {
                     }
                 }
