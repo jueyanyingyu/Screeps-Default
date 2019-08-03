@@ -115,7 +115,7 @@ function doClaim(creep) {
             }
         } else {
             let controller = creep.room.controller;
-            if (controller) {
+            if (controller && controller.my == false) {
                 if (creep.attackController(controller) == ERR_NOT_IN_RANGE) {
                     creep.travelTo(controller);
                 }

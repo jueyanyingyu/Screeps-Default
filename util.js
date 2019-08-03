@@ -128,5 +128,14 @@ module.exports = {
             condition:'true'
         };
         Memory['roomInfo'][roomName]['spawnList'].push(newCreepInf);
+    },
+    copyInSpawnList:function (roomName,creep) {
+        let newCreepInf = {
+            body: JSON.stringify(creep.body.map(s => s.type)),
+            name: creep.name,
+            memory: JSON.stringify(creep.memory),
+            condition:'true'
+        };
+        Memory['roomInfo'][roomName]['spawnList'].push(newCreepInf);
     }
 };

@@ -1,5 +1,3 @@
-let Traveler = require('Traveler');
-
 function doDefend(creep) {
     if(creep.room.name != creep.memory.room) {
         creep.moveTo(new RoomPosition(25,25,creep.memory.room));

@@ -9,7 +9,7 @@ let replenish = {
                 };
 
                 if (creep.memory.role == 'claimer') {
-                    let time  = Game.time + 18000;
+                    let time  = Game.time + 20000;
                     newCreepInf.condition = 'Game.time >'+time;
                 } else {
                     newCreepInf.condition = 'true';

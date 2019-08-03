@@ -1,11 +1,10 @@
 const UC = require('util.conventional');
 const replenish = require('type.replenish');
 function setCreep(creep) {
-    const UC = require('util.conventional');
     try {
         let list = Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName];
         let srcId, tgtId;
-        let index = list.findIndex(l => (srcId = l.src.find(s => UC[l.srcJudge](s, l.resourceType))) && (tgtId = l.tgt.find(t => UC[l.tgtJudge](t, l.resourceType))));
+        let index = list.findIndex(l => (srcId = l.src.find(s => UC[l.srcJudge](Game.getObjectById(s), l.resourceType))) && (tgtId = l.tgt.find(t => UC[l.tgtJudge](Game.getObjectById(t), l.resourceType))));
         if (index != -1) {
             creep.memory.task = {};
             creep.memory.task.src = srcId;
@@ -20,37 +19,45 @@ function setCreep(creep) {
     } catch (e) {
         console.log(creep);
         console.log(e);
-        creep.say('cannot set');
+        creep.say('‼');
     }
 }
 
 function doCreep(creep, ifRcs) {
     try {
-        let srcId = creep.memory.task.src;
+        let src = Game.getObjectById(creep.memory.task.src);
         let srcJudge = creep.memory.task.srcJudge;
         let doSrc = creep.memory.task.doSrc;
-        let tgtId = creep.memory.task.tgt;
+        let tgt = Game.getObjectById(creep.memory.task.tgt);
         let tgtJudge = creep.memory.task.tgtJudge;
         let doTgt = creep.memory.task.doTgt;
         let resourceType = creep.memory.task.resourceType;
         if (creep.memory.work == true) {
-            if (UC[srcJudge](srcId, resourceType)) {
-                UC[doSrc](creep, srcId, tgtId, resourceType);
+            if (UC[srcJudge](src, resourceType)) {
+                UC[doSrc](creep, src, tgt, resourceType);
                 return;
             }
         } else {
-            if (UC[tgtJudge](tgtId, resourceType)) {
-                UC[doTgt](creep, srcId, tgtId, resourceType);
+            if (UC[tgtJudge](tgt, resourceType)) {
+                UC[doTgt](creep, src, tgt, resourceType);
                 return;
             }
         }
     } catch (e) {
-        creep.say('cannot work');
+        creep.say('❗');
     }
-    creep.say('setting');
+    creep.say('❔');
     if (ifRcs == true && setCreep(creep) == true) {
         doCreep(creep, false);
     } else {
+        try {
+            if (creep.memory.work == true) {
+                creep.moveTo(Game.getObjectById(creep.memory.task.src));
+            } else {
+                creep.moveTo(Game.getObjectById(creep.memory.task.tgt));
+            }
+        } catch (e) {
+        }
         //creep.move(_.random(0,7));
     }
 }

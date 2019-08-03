@@ -1,135 +1,120 @@
 module.exports = {
-    sourceJudge:function (id, resourceType) {
-        let src = Game.getObjectById(id);
-        return src.energy > 0;
+    sourceJudge: function (goal, resourceType) {
+        return goal.energy > 0;
     },
-    mineralJudge:function (id, resourceType) {
-        let src = Game.getObjectById(id);
-        return src.mineralAmount > 0;
+    mineralJudge: function (goal, resourceType) {
+        return goal.mineralAmount > 0;
     },
-    containerJudgeI:function (id ,resourceType) {
-        let tgt = Game.getObjectById(id);
-        return tgt && (tgt.storeCapacity && tgt.store[resourceType] > 0 )|| (resourceType == RESOURCE_ENERGY && tgt.energyCapacity && tgt.energy > 0);
+    containerJudgeI: function (goal, resourceType) {
+        return goal && (goal.storeCapacity && goal.store[resourceType] > 0) || (resourceType == RESOURCE_ENERGY && goal.energyCapacity && goal.energy > 0);
     },
-    containerJudgeII:function (id ,resourceType) {
-        let tgt = Game.getObjectById(id);
-        return tgt && (tgt.storeCapacity && _.sum(tgt.store) < tgt.storeCapacity) || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy < tgt.energyCapacity);
+    containerJudgeII: function (goal, resourceType) {
+        return goal && (goal.storeCapacity && _.sum(goal.store) < goal.storeCapacity) || (resourceType == RESOURCE_ENERGY && goal.energyCapacity && goal.energy < goal.energyCapacity);
     },
-    containerJudgeIII:function (id ,resourceType) {
-        let tgt = Game.getObjectById(id);
-        return tgt && (tgt.storeCapacity && tgt.storeCapacity - tgt.store[RESOURCE_ENERGY] >= 1200)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energyCapacity - tgt.energy >= 1200);
+    containerJudgeIII: function (goal, resourceType) {
+        return goal && (goal.storeCapacity && goal.storeCapacity - goal.store[RESOURCE_ENERGY] >= 1200) || (resourceType == RESOURCE_ENERGY && goal.energyCapacity && goal.energyCapacity - goal.energy >= 1200);
     },
-    containerJudgeIV:function (id ,resourceType) {
-        let tgt = Game.getObjectById(id);
-        return tgt && (tgt.storeCapacity && tgt.store[resourceType] >= 50000)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy >= 50000);
+    containerJudgeIV: function (goal, resourceType) {
+        return goal && (goal.storeCapacity && goal.store[resourceType] >= 100000) || (resourceType == RESOURCE_ENERGY && goal.energyCapacity && goal.energy >= 100000);
     },
-    containerJudgeV:function (id ,resourceType) {
-        let tgt = Game.getObjectById(id);
-        return tgt && (tgt.storeCapacity && tgt.store[resourceType] < 150000)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy < 150000);
+    containerJudgeV: function (goal, resourceType) {
+        return goal && (goal.storeCapacity && goal.store[resourceType] < 150000) || (resourceType == RESOURCE_ENERGY && goal.energyCapacity && goal.energy < 150000);
     },
-    containerJudgeVI:function (id ,resourceType) {
-        let tgt = Game.getObjectById(id);
-        return tgt && (tgt.storeCapacity && tgt.store[resourceType] >= 1200)  || (resourceType == RESOURCE_ENERGY && tgt.energyCapacity &&  tgt.energy >= 1200);
+    containerJudgeVI: function (goal, resourceType) {
+        return goal && (goal.storeCapacity && goal.store[resourceType] >= 1200) || (resourceType == RESOURCE_ENERGY && goal.energyCapacity && goal.energy >= 1200);
     },
-    repairJudge:function (id ,resourceType) {
-        let tgt = Game.getObjectById(id);
-        return tgt && tgt.hits < tgt.hitsMax;
+    repairJudge: function (goal, resourceType) {
+        return goal && goal.hits < goal.hitsMax;
     },
-    buildJudge:function (id ,resourceType) {
-        let tgt = Game.getObjectById(id);
-        return tgt && tgt.progress < tgt.progressTotal;
+    buildJudge: function (goal, resourceType) {
+        return goal && goal.progress < goal.progressTotal;
     },
-    controllerJudge:function (id ,resourceType) {
-        let tgt = Game.getObjectById(id);
-        return tgt && tgt.progress ;
+    controllerJudge: function (goal, resourceType) {
+        return goal && goal.progress + 1;
     },
 
-    harvestSourceOrMineral:function (creep ,srcId, tgtId ,resourceType) {
-        let src = Game.getObjectById(srcId);
+    harvestSourceOrMineral: function (creep, src, tgt, resourceType) {
+        creep.say('⛏');
         if (creep.harvest(src) == ERR_NOT_IN_RANGE) {
             creep.travelTo(src);
         }
     },
-    withdraw:function (creep ,srcId, tgtId ,resourceType) {
-        let src = Game.getObjectById(srcId);
-        if (creep.withdraw(src,resourceType) == ERR_NOT_IN_RANGE) {
+    withdraw: function (creep, src, tgt, resourceType) {
+        creep.say('🚚');
+        if (creep.withdraw(src, resourceType) == ERR_NOT_IN_RANGE) {
             creep.travelTo(src);
         }
         creep.memory.work = false;
     },
-    withdrawNear:function (creep ,srcId, tgtId ,resourceType) {
-        let src = Game.getObjectById(srcId);
-        if (creep.withdraw(src,resourceType) == ERR_NOT_IN_RANGE) {
+    withdrawNear: function (creep, src, tgt, resourceType) {
+        creep.say('🚚↔');
+        if (creep.withdraw(src, resourceType) == ERR_NOT_IN_RANGE) {
             creep.moveTo(src);
         }
         creep.memory.work = false;
     },
-    withdrawWithUpgrade:function (creep ,srcId, tgtId ,resourceType) {
-        let src = Game.getObjectById(srcId);
-        let tgt = Game.getObjectById(tgtId);
-        if (creep.withdraw(src,resourceType) == ERR_NOT_IN_RANGE) {
+    withdrawWithUpgrade: function (creep, src, tgt, resourceType) {
+        creep.say('🚚+⚙');
+        if (creep.withdraw(src, resourceType) == ERR_NOT_IN_RANGE) {
             creep.travelTo(src);
         }
         creep.upgradeController(tgt);
     },
-    transfer:function (creep ,srcId, tgtId ,resourceType) {
-        let tgt = Game.getObjectById(tgtId);
+    transfer: function (creep, src, tgt, resourceType) {
+        creep.say('🚚💨');
         if (creep.transfer(tgt, resourceType) == ERR_NOT_IN_RANGE) {
             creep.travelTo(tgt);
         }
     },
-    transferNear:function (creep ,srcId, tgtId ,resourceType) {
-        let tgt = Game.getObjectById(tgtId);
+    transferNear: function (creep, src, tgt, resourceType) {
+        creep.say('🚚💨↔');
         if (creep.transfer(tgt, resourceType) == ERR_NOT_IN_RANGE) {
             creep.moveTo(tgt);
         }
     },
-    transferWithWithdraw:function (creep ,srcId, tgtId ,resourceType) {
-        let src = Game.getObjectById(srcId);
-        let tgt = Game.getObjectById(tgtId);
+    transferWithWithdraw: function (creep, src, tgt, resourceType) {
+        creep.say('🚚💨+🚚');
         if (creep.transfer(tgt, resourceType) == ERR_NOT_IN_RANGE) {
             creep.travelTo(tgt);
         }
-        creep.withdraw(src,resourceType);
+        creep.withdraw(src, resourceType);
     },
-    transferWithHarvest:function (creep ,srcId, tgtId ,resourceType) {
-        let src = Game.getObjectById(srcId);
-        let tgt = Game.getObjectById(tgtId);
+    transferWithHarvest: function (creep, src, tgt, resourceType) {
+        creep.say('🚚💨+⛏');
         if (creep.transfer(tgt, resourceType) == ERR_NOT_IN_RANGE) {
             creep.travelTo(tgt);
         }
         creep.harvest(src);
     },
-    repair:function (creep ,srcId, tgtId ,resourceType) {
-        let tgt = Game.getObjectById(tgtId);
+    repair: function (creep, src, tgt, resourceType) {
+        creep.say('🔧');
         if (creep.repair(tgt) == ERR_NOT_IN_RANGE) {
-            creep.travelTo(tgt,{
-                ignoreRoads:true,
+            creep.travelTo(tgt, {
+                ignoreRoads: true,
                 ignoreCreeps: false
             });
         }
     },
-    build:function (creep ,srcId, tgtId ,resourceType) {
-        let tgt = Game.getObjectById(tgtId);
+    build: function (creep, src, tgt, resourceType) {
+        creep.say('🛠');
         if (creep.build(tgt) == ERR_NOT_IN_RANGE) {
-            creep.travelTo(tgt,{
-                ignoreRoads:true,
+            creep.travelTo(tgt, {
+                ignoreRoads: true,
                 ignoreCreeps: false
             });
         }
     },
-    upgrade:function (creep ,srcId, tgtId ,resourceType) {
-        let tgt = Game.getObjectById(tgtId);
+    upgrade: function (creep, src, tgt, resourceType) {
+        creep.say('⚙');
         if (creep.upgradeController(tgt) == ERR_NOT_IN_RANGE) {
             creep.travelTo(tgt);
         }
     },
-    upgradeWithWithdraw:function (creep ,srcId, tgtId ,resourceType) {
-        let src = Game.getObjectById(srcId)
-        let tgt = Game.getObjectById(tgtId);
+    upgradeWithWithdraw: function (creep, src, tgt, resourceType) {
+        creep.say('⚙+🚚');
         if (creep.upgradeController(tgt) == ERR_NOT_IN_RANGE) {
             creep.travelTo(tgt);
         }
-        creep.withdraw(src,resourceType);
+        creep.withdraw(src, resourceType);
     },
 };
