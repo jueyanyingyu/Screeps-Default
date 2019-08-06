@@ -63,20 +63,24 @@ function doCreep(creep, ifRcs) {
 }
 
 module.exports = {
-    run: function (creep) {
-        replenish.run(creep);
-        if (_.sum(creep.carry) == creep.carryCapacity) {
-            if (creep.memory.work == true) {
-                setCreep(creep);
-            }
-            creep.memory.work = false;
-        } else if (_.sum(creep.carry) == 0) {
-            if (creep.memory.work == false) {
-                setCreep(creep);
-            }
-            creep.memory.work = true;
+    run: function () {
+        let conventionalCreeps = _.filter(Game.creeps, (creep) => creep.memory.type == 'conventional');
+        for (let name in conventionalCreeps) {
+            let creep = conventionalCreeps[name];
+            replenish.run(creep);
+            if (_.sum(creep.carry) == creep.carryCapacity) {
+                if (creep.memory.work == true) {
+                    setCreep(creep);
+                }
+                creep.memory.work = false;
+            } else if (_.sum(creep.carry) == 0) {
+                if (creep.memory.work == false) {
+                    setCreep(creep);
+                }
+                creep.memory.work = true;
 
+            }
+            doCreep(creep,true);
         }
-        doCreep(creep,true);
     }
 };

@@ -21,7 +21,7 @@ module.exports = {
                     tower.heal(closestDamagedCreep);
                 } else {
                     let closestDamagedStructure = tower.room.find(FIND_STRUCTURES, {
-                        filter: (structure) => structure.hits / structure.hitsMax < 0.05 && structure.structureType != 'constructedWall' && structure.structureType != STRUCTURE_RAMPART
+                        filter: (structure) => (structure.hits / structure.hitsMax < 0.05 && structure.structureType != 'constructedWall' && structure.structureType != STRUCTURE_RAMPART )
                     })[0];
                     if (closestDamagedStructure) {
                         tower.repair(closestDamagedStructure);

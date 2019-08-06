@@ -35,12 +35,17 @@ function doCreep(creep) {
 }
 
 module.exports = {
-    run: function (creep) {
-        replenish.run(creep);
-        if (creep.memory.typeInfo.busy) {
-            doCreep(creep);
-        } else {
-            setCreep(creep);
+    run: function () {
+        let reactiveCreeps = _.filter(Game.creeps, (creep) => creep.memory.type == 'reactive');
+        for (let name in reactiveCreeps) {
+            let creep = reactiveCreeps[name];
+            replenish.run(creep);
+            if (creep.memory.typeInfo.busy) {
+                doCreep(creep);
+            } else {
+                setCreep(creep);
+            }
         }
+
     }
 };

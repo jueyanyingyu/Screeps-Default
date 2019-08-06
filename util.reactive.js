@@ -6,12 +6,12 @@ module.exports = {
         if (creep.room.name != creep.memory.reactive.eventRoom) {
             creep.travelTo(new RoomPosition(25,25,creep.memory.reactive.eventRoom));
         } else {
-            let noHealHostile = creep.room.find(FIND_HOSTILE_CREEPS,{filter:h=>h.body.map(b=>b.type).indexOf(HEAL) == -1})[0];
+            let healHostile = creep.room.find(FIND_HOSTILE_CREEPS,{filter:h=>h.body.map(b=>b.type).indexOf(HEAL) != -1})[0];
             let hostile;
-            if (!noHealHostile) {
+            if (!healHostile) {
                 hostile = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             } else {
-                hostile = noHealHostile;
+                hostile = healHostile;
             }
             if (hostile) {
                 if (creep.attack(hostile) == ERR_NOT_IN_RANGE) {
@@ -38,6 +38,8 @@ module.exports = {
                 } else {
                     creep.memory.typeInfo.busy = false;
                 }
+
+
             }
         }
     }

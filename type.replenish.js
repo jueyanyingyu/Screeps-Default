@@ -35,8 +35,8 @@ let replenish = {
                         name: name,
                         memory: JSON.stringify(creep.memory),
                     };
-                    if (creep.memory.type == 'conventional' && Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName]['replenishCondition']) {
-                        newCreepInf.condition = Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName]['replenishCondition'];
+                    if (creep.memory.type == 'conventional' && Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName][0]['replenishCondition']) {
+                        newCreepInf.condition = Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName][0]['replenishCondition'];
                     } else {
                         newCreepInf.condition = 'true';
                     }
@@ -46,13 +46,19 @@ let replenish = {
             }
 
             if (creep.memory.needReplenish == true && creep.hits / creep.hitsMax < 0.2) {
+                let name;
+                if (creep.memory.type == 'conventional') {
+                    name = creep.memory.typeInfo.taskRoom + '_' + creep.memory.typeInfo.taskName;
+                } else if (creep.memory.type == 'reactive') {
+                    name = creep.memory.typeInfo.reactiveName;
+                }
                 let newCreepInf = {
                     body: JSON.stringify(creep.body.map(s => s.type)),
-                    name: creep.memory.typeInfo.taskRoom + '_' + creep.memory.typeInfo.taskName,
+                    name: name,
                     memory: JSON.stringify(creep.memory),
                 };
-                if (Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName]['replenishCondition']) {
-                    newCreepInf.condition = Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName]['replenishCondition'];
+                if (creep.memory.type == 'conventional' && Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName][0]['replenishCondition']) {
+                    newCreepInf.condition = Memory['taskList'][creep.memory.typeInfo.taskRoom][creep.memory.typeInfo.taskName][0]['replenishCondition'];
                 } else {
                     newCreepInf.condition = 'true';
                 }

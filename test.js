@@ -386,14 +386,14 @@ memory = {
         busy:false
     },
     needReplenish: true,
-    replenishRoom: 'E21N23'
+    replenishRoom: 'E19N25'
 }
 Memory.taskList['E21N23']['sourceTransporterI'] = [
     {
-        src: ['5d419f802f60936360b717f2'],
-        srcJudge: 'containerJudgeI',
+        src: ['5d1bc1dab5c99a37435cd260'],
+        srcJudge: 'containerJudgeIV',
         doSrc: 'withdraw',
-        tgt: ['5d4441b8758e3f7453445b36'],
+        tgt: ['5d47dbbe8cee062b513e9a07'],
         tgtJudge: 'containerJudgeII',
         doTgt: 'transfer',
         resourceType: RESOURCE_ENERGY
@@ -409,5 +409,16 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WO
         work: true,
         needReplenish: true,
         replenishRoom: 'E19N25'
+    }
+});
+Game.spawns['Spawn_E21N23_1'].spawnCreep([TOUGH], 'test' + Game.time, {
+    memory: {
+        type: 'combatSquad',
+        typeInfo: {
+            combatSquadName:'getPowerBank',
+            role:'attacker'
+        },
+        needReplenish: false,
+        replenishRoom: 'E21N23'
     }
 });

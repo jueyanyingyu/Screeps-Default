@@ -1,3 +1,4 @@
+let visual = require('util.visual');
 module.exports = {
     sourceJudge: function (goal, resourceType) {
         return goal.energy > 0;
@@ -97,6 +98,7 @@ module.exports = {
     },
     build: function (creep, src, tgt, resourceType) {
         creep.say('🛠');
+        visual.showProgress(tgt);
         if (creep.build(tgt) == ERR_NOT_IN_RANGE) {
             creep.travelTo(tgt, {
                 ignoreRoads: true,

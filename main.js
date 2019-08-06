@@ -1,13 +1,17 @@
 let Traveler = require('Traveler');
 let tool = require('util');
+let visual = require('util.visual');
 const profiler = require('screeps-profiler');
 let typeListToList = require('type.listToList');
 let roleTower = require('role.tower');
 let roleToSpot = require('role.toSpot');
 let roleListToList = require('role.listToList');
 let roleLink = require('role.link');
+
+
 const conventional = require('type.conventional');
 const  reactive = require('type.reactive');
+const  combatSquad = require('type.combatSquad');
 //let roleDemolisher = require('role.demolisher');
 //let roleClaimer = require('role.claimer');
 profiler.enable();
@@ -30,15 +34,38 @@ module.exports.loop = function () {
 
             }
         }
-        if (Game.time % 20 == 0) {
-
+        if (Game.time % 10 == 0) {
+            /*
             if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] > 0) {
+                let buyorder =Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_POWER}).sort((a,b)=>(a.price-Game.market.calcTransactionCost(100, 'E19N25', a.roomName)*0.00015)<(b.price-Game.market.calcTransactionCost(100, 'E19N25', b.roomName)*0.00015))[0];
+                let sellorder = Game.market.getAllOrders({type: ORDER_SELL, resourceType: RESOURCE_POWER}).sort((a,b)=>(a.price+Game.market.calcTransactionCost(100, 'E19N25', a.roomName)*0.00015)>(b.price+Game.market.calcTransactionCost(100, 'E19N25', b.roomName)*0.00015))[0];
+                let income = buyorder.price-sellorder.price-Game.market.calcTransactionCost(100, 'E19N25', sellorder.roomName)*0.00015-Game.market.calcTransactionCost(100, 'E19N25', buyorder.roomName)*0.00015;
+                if (Memory['hasSold'] == true && income > 0) {
+                    Game.market.deal(sellorder.id,1000,'E19N25');
+                    console.log('buyin ' + (sellorder.price*1000));
+                    console.log('fare '+ Game.market.calcTransactionCost(1000, 'E19N25', sellorder.roomName)*0.015);
+                    Memory['hasSold'] = false;
+                } else if (Memory['hasSold'] == false && income > 0) {
+                    Game.market.deal(buyorder.id,1000,'E19N25');
+                    console.log('sellout ' + (buyorder.price*1000));
+                    console.log('fare ' + Game.market.calcTransactionCost(1000, 'E19N25', buyorder.roomName)*0.015);
+                    Memory['hasSold'] = true;
+                } else {
+                    console.log('no sell');
+                }
+
+            }
+             */
+            if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] > 0 && Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ZYNTHIUM] > 70000) {
                 let order =Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ZYNTHIUM}).sort((a,b)=>b.price-Game.market.calcTransactionCost(100, 'E19N25', b.roomName)*0.00015-a.price+Game.market.calcTransactionCost(100, 'E19N25', a.roomName)*0.00015)[0];
                 if (order.price > 0.04) {
                     Game.market.deal(order.id,1000,'E19N25');
                     let price = order.price - Game.market.calcTransactionCost(100, 'E19N25', order.roomName)*0.00015;
-                    console.log("deal with " + order.roomName + ' at the price of ' + price);
+                    console.log("deal with " + order.roomName + ' at the price of ' + price + ' get '+1000*order.price);
                 }
+            }
+            if (_.sum(Game.getObjectById('5d1bc1dab5c99a37435cd260').store) >= 990000) {
+                Game.getObjectById('5d27ec31496c4017073f8939').send(RESOURCE_ENERGY,10000,'E19N26');
             }
             /*
             if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] < 100000) {
@@ -71,17 +98,9 @@ module.exports.loop = function () {
             }
         }
 
-        let reactiveCreeps = _.filter(Game.creeps, (creep) => creep.memory.type == 'reactive');
-        for (let name in reactiveCreeps) {
-            let creep = reactiveCreeps[name];
-            reactive.run(creep);
-        }
-
-        let conventionalCreeps = _.filter(Game.creeps, (creep) => creep.memory.type == 'conventional');
-        for (let name in conventionalCreeps) {
-            let creep = conventionalCreeps[name];
-            conventional.run(creep);
-        }
+        conventional.run();
+        reactive.run();
+        combatSquad.run();
 
         let listCreeps = _.filter(Game.creeps, (creep) => creep.memory.type == 'listToList');
         for (let name in listCreeps) {
