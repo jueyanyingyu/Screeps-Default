@@ -7,13 +7,14 @@ let replenish = {
                     name: creep.memory.room + '_' + creep.memory.role,
                     memory: JSON.stringify(creep.memory),
                 };
-
+                newCreepInf.condition = 'true';
+                /*
                 if (creep.memory.role == 'claimer') {
                     let time  = Game.time + 20000;
                     newCreepInf.condition = 'Game.time >'+time;
                 } else {
                     newCreepInf.condition = 'true';
-                }
+                }*/
                 Memory['roomInfo'][creep.memory.replenishRoom]['spawnList'].push(newCreepInf);
                 creep.memory.needReplenish = false;
             }

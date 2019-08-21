@@ -50,13 +50,13 @@ Game.spawns['Spawn1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK
         renew: false
     }
 })
-Game.spawns['Spawn_E19N25_1'].spawnCreep([CLAIM, MOVE], 'Claimer' + Game.time, {
+Game.spawns['Spawn_E21N23_1'].spawnCreep([CLAIM, MOVE,CLAIM, MOVE], 'Claimer' + Game.time, {
     memory: {
         roleType: 'toSpot',
         role: 'claimer',
         groupNum: '4',
-        needReplenish: true,
-        replenishRoom: 'E19N25'
+        needReplenish: false,
+        replenishRoom: 'E21N23'
     }
 })
 Memory.transmitter_E17N26_1_tgt = Game.rooms['E17N26'].find(FIND_STRUCTURES).filter(s => s.structureType == 'spawn' || s.structureType == 'extension').map(s => s.id)
@@ -175,13 +175,14 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WO
 //新的模式
 Memory.taskList['E19N25']['linkAndUpgradeTransporter'] = [
     {
+        //setList:''
         src: [],
         srcJudge: '',
         doSrc: '',
         tgt: [],
         tgtJudge: '',
         doTgt: '',
-        resourceType: RESOURCE_ENERGY
+        resourceList: [RESOURCE_ENERGY]
         //replenishCondition:''
     }
 ];
@@ -243,7 +244,7 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WO
         replenishRoom: 'E19N25'
     }
 });
-Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK,WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK,WORK, WORK, WORK, WORK, WORK,CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Upgrader' + Game.time, {
+Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK,WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK,WORK, WORK, WORK, WORK, WORK,WORK, WORK, WORK, WORK, WORK,CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], 'Upgrader' + Game.time, {
     memory: {
         type: 'conventional',
         typeInfo: {
@@ -362,12 +363,12 @@ Game.spawns['Spawn_E21N23_1'].spawnCreep([WORK,WORK,WORK,WORK,WORK,WORK,CARRY,MO
         replenishRoom: 'E21N23'
     }
 })
-Game.spawns['Spawn_E21N23_1'].spawnCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY, MOVE,MOVE,MOVE], 'keyTransporter' + Game.time, {
+Game.spawns['Spawn_E21N23_1'].spawnCreep([CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,CARRY,CARRY,MOVE,], 'keyTransporter' + Game.time, {
     memory: {
         type: 'conventional',
         typeInfo: {
             taskRoom: 'E21N23',
-            taskName: 'sourceTransporterI'
+            taskName: 'mineralTransporter'
         },
         work: true,
         needReplenish: true,
@@ -411,7 +412,7 @@ Game.spawns['Spawn_E19N25_1'].spawnCreep([WORK, WORK, WORK, WORK, WORK, WORK, WO
         replenishRoom: 'E19N25'
     }
 });
-Game.spawns['Spawn_E21N23_1'].spawnCreep([TOUGH], 'test' + Game.time, {
+Game.spawns['Spawn_E19N25_1'].spawnCreep([TOUGH], 'test' + Game.time, {
     memory: {
         type: 'combatSquad',
         typeInfo: {
@@ -419,6 +420,105 @@ Game.spawns['Spawn_E21N23_1'].spawnCreep([TOUGH], 'test' + Game.time, {
             role:'attacker'
         },
         needReplenish: false,
+        replenishRoom: 'E19N25'
+    }
+});
+WORK,WORK,MOVE,
+WORK,WORK,WORK,WORK,MOVE,
+CARRY,CARRY,MOVE,
+WORK,WORK,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,
+
+Game.spawns['Spawn_E21N23_1'].spawnCreep([WORK,WORK,WORK,WORK,MOVE,WORK,WORK,WORK,WORK,MOVE,WORK,WORK,WORK,WORK,MOVE,WORK,WORK,WORK,WORK,MOVE,WORK,WORK,WORK,WORK,MOVE,CARRY], 'Miner' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E21N23',
+            taskName: 'upgrade'
+        },
+        work: true,
+        needReplenish: true,
         replenishRoom: 'E21N23'
     }
 });
+Memory.taskList['E24N22']['maintain'] = [
+    {
+        src: ['5bbcae529099fc012e638c2c','5bbcae529099fc012e638c2d'],
+        srcJudge: 'sourceJudge',
+        doSrc: 'harvestSourceOrMineral',
+        tgt: [],
+        tgtJudge: 'repairJudge',
+        doTgt: 'repair',
+        resourceType: RESOURCE_ENERGY
+    },{
+        src: ['5bbcae529099fc012e638c2c','5bbcae529099fc012e638c2d'],
+        srcJudge: 'sourceJudge',
+        doSrc: 'harvestSourceOrMineral',
+        tgt: [],
+        tgtJudge: 'buildJudge',
+        doTgt: 'build',
+        resourceType: RESOURCE_ENERGY
+    },{
+        src: ['5bbcae529099fc012e638c2c','5bbcae529099fc012e638c2d'],
+        srcJudge: 'sourceJudge',
+        doSrc: 'harvestSourceOrMineral',
+        tgt: [],
+        tgtJudge: 'repairJudge',
+        doTgt: 'repair',
+        resourceType: RESOURCE_ENERGY
+    },{
+        src: ['5bbcae529099fc012e638c2c','5bbcae529099fc012e638c2d'],
+        srcJudge: 'sourceJudge',
+        doSrc: 'harvestSourceOrMineral',
+        tgt: [],
+        tgtJudge: 'repairJudge',
+        doTgt: 'repair',
+        resourceType: RESOURCE_ENERGY
+    }
+];
+Memory.taskList['E24N22']['sourceII'] = [
+    {
+        src: ['5bbcae529099fc012e638c2d'],
+        srcJudge: 'sourceJudge',
+        doSrc: 'harvestSourceOrMineral',
+        tgt: ['5d53f4e9ac2d2d20dcf078c0'],
+        tgtJudge: 'containerJudgeII',
+        doTgt: 'transferWithHarvest',
+        resourceType: RESOURCE_ENERGY
+    }
+];
+Memory.taskList['E24N22']['upgrade'] = [
+    {
+        src: ['5d53fcefb8211979f8d88859'],
+        srcJudge: 'containerJudgeI',
+        doSrc: 'withdraw',
+        tgt: ['5bbcae529099fc012e638c2e'],
+        tgtJudge: 'controllerJudge',
+        doTgt: 'upgradeWithWithdraw',
+        resourceType: RESOURCE_ENERGY
+    }
+];
+Game.spawns['Spawn_E24N22_1'].spawnCreep([CARRY,CARRY,MOVE,CARRY,CARRY,MOVE], 'Miner' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E21N23',
+            taskName: 'keyTransporter'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E24N22'
+    }
+});
+Game.spawns['Spawn_E21N23_1'].spawnCreep([WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE], 'Miner' + Game.time, {
+    memory: {
+        type: 'conventional',
+        typeInfo: {
+            taskRoom: 'E21N23',
+            taskName: 'sourceI'
+        },
+        work: true,
+        needReplenish: true,
+        replenishRoom: 'E21N23'
+    }
+});
+require('util').addInSpawnList('E21N23',[WORK,WORK,MOVE,CARRY], 'Miner' + Game.time, {             type: 'conventional',         typeInfo: {             taskRoom: 'E24N22',             taskName: 'sourceI'         },         work: true,         needReplenish: true,         replenishRoom: 'E24N22'     } )

@@ -74,7 +74,7 @@ module.exports = {
             let newRepair_tgt = Game.rooms[roomName].find(FIND_STRUCTURES, {
                 filter: structure => structure.hits / structure.hitsMax < 0.01 && (structure.structureType == 'rampart'|| structure.structureType == 'constructedWall'  )
             }).map(s => s.id).filter(s => Memory['taskList'][roomName]['maintain'][3].tgt.indexOf(s) == -1);
-            Memory['taskList'][roomName]['maintain'][3].tgt = Memory['taskList'][roomName]['maintain'][3].tgt.filter(s => Game.getObjectById(s) != null && Game.getObjectById(s).hits / Game.getObjectById(s).hitsMax < 0.01);
+            Memory['taskList'][roomName]['maintain'][3].tgt = Memory['taskList'][roomName]['maintain'][3].tgt.filter(s => Game.getObjectById(s) != null && Game.getObjectById(s).hits / Game.getObjectById(s).hitsMax < 0.05);
             for (let newTgt of newRepair_tgt) {
                 Memory['taskList'][roomName]['maintain'][3].tgt.push(newTgt);
             }
@@ -86,6 +86,12 @@ module.exports = {
     },
     spawn:function (roomName) {
         let toSpawn;
+        if (!Memory['roomInfo'][roomName]) {
+            Memory['roomInfo'][roomName] = {};
+            Memory['roomInfo'][roomName]['keySpawnList'] = [];
+            Memory['roomInfo'][roomName]['spawnList'] = [];
+            return;
+        }
         if (Memory['roomInfo'][roomName]['keySpawnList'].length > 0) {
             toSpawn = Memory['roomInfo'][roomName]['keySpawnList'][0];
         } else {
@@ -101,7 +107,7 @@ module.exports = {
                         Memory['roomInfo'][roomName]['keySpawnList'] = Memory['roomInfo'][roomName]['keySpawnList'].filter(c => c != toSpawn);
                         Memory['roomInfo'][roomName]['spawnList'] = Memory['roomInfo'][roomName]['spawnList'].filter(c => c != toSpawn);
                         break;
-                    } else if (r == -6 && roomName == 'E19N25' && _.filter(Game.creeps, c => c.memory.typeInfo && c.memory.typeInfo.taskRoom == roomName && c.memory.typeInfo.taskName == 'keyTransporter').length == 0) {
+                    } else if (r == -6 && _.filter(Game.creeps, c => c.memory.typeInfo && c.memory.typeInfo.taskRoom == roomName && c.memory.typeInfo.taskName == 'keyTransporter').length == 0) {
                         spawn.spawnCreep([CARRY, CARRY, CARRY, CARRY, MOVE, MOVE], 'transmitter' + Game.time, {
                             memory: {
                                 type: 'conventional',
@@ -137,5 +143,25 @@ module.exports = {
             condition:'true'
         };
         Memory['roomInfo'][roomName]['spawnList'].push(newCreepInf);
+    },
+    sell:function(sellRoom,sellResource,threshold) {
+        if (sellRoom.terminal.store[RESOURCE_ENERGY] >= 100000 && sellRoom.terminal.store[sellResource] > 1000) {
+            let order =Game.market.getAllOrders({type: ORDER_BUY, resourceType: sellResource}).sort((a,b)=>(a.price-Game.market.calcTransactionCost(100, sellRoom.name, a.roomName)*0.00015)<(b.price-Game.market.calcTransactionCost(100, sellRoom.name, b.roomName)*0.00015))[0];
+            if (order.price > threshold) {
+                Game.market.deal(order.id,1000,sellRoom.name);
+                let price = order.price - Game.market.calcTransactionCost(100, sellRoom.name, order.roomName)*0.00015;
+                console.log(sellRoom.name +':deal '+sellResource+' with '+order.roomName + ' in ' + price);
+            }
+        }
+    },
+    buy:function (buyRoom,buyResource,threshold) {
+        if (buyRoom.terminal.store[RESOURCE_ENERGY] >= 100000 && buyRoom.terminal.store[buyResource] < 1000) {
+            let order =Game.market.getAllOrders({type: ORDER_SELL, resourceType: buyResource}).sort((a,b)=>(a.price+Game.market.calcTransactionCost(100, buyRoom.name, a.roomName)*0.00015)>(b.price+Game.market.calcTransactionCost(100, buyRoom.name, b.roomName)*0.00015))[0];
+            if (order.price < threshold) {
+                Game.market.deal(order.id,1000,buyRoom.name);
+                let price = order.price + Game.market.calcTransactionCost(100, buyRoom.name, order.roomName)*0.00015;
+                console.log(buyRoom.name+':deal '+buyResource+' with '+order.roomName + ' in ' + price);
+            }
+        }
     }
 };

@@ -17,24 +17,29 @@ const  combatSquad = require('type.combatSquad');
 profiler.enable();
 module.exports.loop = function () {
     profiler.wrap(function () {
-        for (let roomName in Game.rooms) {
-            if (Game.rooms[roomName].find(FIND_MY_SPAWNS).filter(s => s.isActive() == true).length > 0) {
+        if (Game.time%3 == 0) {
+            for (let roomName in Game.rooms) {
+                if (Game.rooms[roomName].find(FIND_MY_SPAWNS).filter(s => s.isActive() == true).length > 0) {
+                    try {
+                        tool.spawn(roomName);
+                    } catch (e) {
+                        console.log(roomName);
+                        console.log(e);
+                    }
+                }
+            }
+            for (let roomName of Memory['roomList']) {
                 try {
-                    tool.spawn(roomName);
+                    Memory['eventList'][roomName] = Game.rooms[roomName].getEventLog(false);
                 } catch (e) {
-                    console.log(roomName);
-                    console.log(e);
+
                 }
             }
         }
-        for (let roomName of Memory['roomList']) {
-            try {
-                Memory['eventList'][roomName] = Game.rooms[roomName].getEventLog(false);
-            } catch (e) {
-
-            }
-        }
-        if (Game.time % 10 == 0) {
+        if (Game.time % 20 == 0) {
+            tool.sell(Game.rooms['E19N25'],RESOURCE_ZYNTHIUM,0.04);
+            tool.sell(Game.rooms['E21N23'],RESOURCE_KEANIUM,0.04);
+            tool.buy(Game.rooms['E19N25'],RESOURCE_POWER,0.4);
             /*
             if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] > 0) {
                 let buyorder =Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_POWER}).sort((a,b)=>(a.price-Game.market.calcTransactionCost(100, 'E19N25', a.roomName)*0.00015)<(b.price-Game.market.calcTransactionCost(100, 'E19N25', b.roomName)*0.00015))[0];
@@ -56,16 +61,14 @@ module.exports.loop = function () {
 
             }
              */
-            if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] > 0 && Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ZYNTHIUM] > 70000) {
-                let order =Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ZYNTHIUM}).sort((a,b)=>b.price-Game.market.calcTransactionCost(100, 'E19N25', b.roomName)*0.00015-a.price+Game.market.calcTransactionCost(100, 'E19N25', a.roomName)*0.00015)[0];
-                if (order.price > 0.04) {
-                    Game.market.deal(order.id,1000,'E19N25');
-                    let price = order.price - Game.market.calcTransactionCost(100, 'E19N25', order.roomName)*0.00015;
-                    console.log("deal with " + order.roomName + ' at the price of ' + price + ' get '+1000*order.price);
+
+/*
+            if (_.sum(Game.getObjectById('5d1bc1dab5c99a37435cd260').store) >= 980000) {
+                Game.getObjectById('5d27ec31496c4017073f8939').send(RESOURCE_ENERGY,10000,'E21N23');
+                let order =Game.market.getAllOrders({type: ORDER_BUY, resourceType: RESOURCE_ENERGY}).sort((a,b)=>b.price-Game.market.calcTransactionCost(100, 'E19N25', b.roomName)*0.00015-a.price+Game.market.calcTransactionCost(100,'E19N25', a.roomName)*0.00015)[0];
+                if (order.price > 0.004) {
+                    console.log(Game.market.deal(order.id,1000,'E19N25'));
                 }
-            }
-            if (_.sum(Game.getObjectById('5d1bc1dab5c99a37435cd260').store) >= 990000) {
-                Game.getObjectById('5d27ec31496c4017073f8939').send(RESOURCE_ENERGY,10000,'E19N26');
             }
             /*
             if (Game.getObjectById('5d27ec31496c4017073f8939').store[RESOURCE_ENERGY] < 100000) {
@@ -97,10 +100,24 @@ module.exports.loop = function () {
                 }
             }
         }
+        if (Game.time%1 == 0) {
+            conventional.run();
+            reactive.run();
+            //combatSquad.run();
+            Game.getObjectById('5d4960b9636d162b669fbf2f').processPower();
 
-        conventional.run();
-        reactive.run();
-        combatSquad.run();
+            let obeyLinks = _.filter(Game.structures, s => s.structureType == 'link');
+            for (let link of obeyLinks) {
+                if (roleLink.run(link) == OK) {
+                    break;
+                }
+            }
+            let towers = _.filter(Game.structures, s => s.structureType == 'tower');
+            for (let tower of towers) {
+                roleTower.run(tower);
+            }
+        }
+        //combatSquad.run();
 
         let listCreeps = _.filter(Game.creeps, (creep) => creep.memory.type == 'listToList');
         for (let name in listCreeps) {
@@ -113,25 +130,6 @@ module.exports.loop = function () {
             let creep = listToListCreeps[name];
             roleListToList.run(creep);
         }
-        let obeyLinks = _.filter(Game.structures, s => s.structureType == 'link');
-        for (let link of obeyLinks) {
-            if (roleLink.run(link) == OK) {
-                break;
-            }
-        }
-
-        for (let name in Game.rooms) {
-            let renewName = 'canRenew_' + name;
-            if (Memory[renewName] == false && Game.rooms[name].energyAvailable >= 300) {
-                Memory[renewName] = true;
-            }
-        }
-
-        let towers = _.filter(Game.structures, s => s.structureType == 'tower');
-        for (let tower of towers) {
-            roleTower.run(tower);
-        }
-
         if (Memory.isWar == true) {
             let toSpots = _.filter(Game.creeps, c => c.memory.roleType == 'toSpot');
             for (let toSpot of toSpots) {
